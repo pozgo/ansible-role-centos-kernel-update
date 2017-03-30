@@ -1,0 +1,25 @@
+---
+- name: == RPM_KEY == Add elrepo key
+  rpm_key:
+    state: present
+    key: https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+
+- name: == YUM == Install elrepo
+  yum:
+    name: http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+    state: present
+
+- name: == YUM == Install kernel
+  yum:
+    enablerepo: elrepo-kernel,elrepo-extras
+    name: kernel-ml,kernel-ml-devel,kernel-ml-headers
+    state: latest
+
+- name: == YUM == update
+  yum:
+    enablerepo: elrepo-kernel,elrepo-extras
+    name: '*'
+    state: latest
+
+- name: == KERNEL == Set latest kernel as default
+  raw: grub2-set-default 0
