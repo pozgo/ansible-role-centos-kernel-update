@@ -6,20 +6,20 @@
 
 - name: == YUM == Install elrepo
   yum:
-    name: http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+    name: http://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
     state: present
 
-- name: == YUM == Install kernel
+- name: == KERNEL == Install kernel
   yum:
     enablerepo: elrepo-kernel,elrepo-extras
     name: kernel-ml,kernel-ml-devel,kernel-ml-headers
     state: latest
 
-- name: == YUM == update
+- name: == KERNEL == update
   yum:
     enablerepo: elrepo-kernel,elrepo-extras
     name: '*'
     state: latest
 
-- name: == KERNEL == Set latest kernel as default
+- name: == GRUB == Set latest kernel as default
   raw: grub2-set-default 0
